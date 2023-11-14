@@ -229,7 +229,7 @@ require('lazy').setup({
   --    Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --
   --    For additional information see: https://github.com/folke/lazy.nvim#-structuring-your-plugins
-  -- { import = 'custom.plugins' },
+  { import = 'custom.plugins' },
 }, {})
 
 -- [[ Setting options ]]
@@ -237,7 +237,7 @@ require('lazy').setup({
 -- NOTE: You can change these options as you wish!
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -289,6 +289,14 @@ vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
+-- Switch between windows
+vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
+vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Window right' })
+vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Window down' })
+vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
+
+vim.keymap.set('n', '<C-n>', '<Cmd>Neotree toggle<CR>')
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -308,7 +316,20 @@ require('telescope').setup {
       i = {
         ['<C-u>'] = false,
         ['<C-d>'] = false,
+        ['<C-j>'] = {
+          require('telescope.actions').move_selection_next, type = "action",
+          opts = { nowait = true, silent = true }
+        },
+        ['<C-k>'] = {
+          require('telescope.actions').move_selection_previous, type = "action",
+          opts = { nowait = true, silent = true }
+        },
       },
+    },
+  },
+  extensions = {
+    advanced_git_search = {
+      diff_plugin = "fugitive",
     },
   },
 }
@@ -470,7 +491,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  -- nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
@@ -511,7 +532,7 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
+  clangd = {},
   -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
