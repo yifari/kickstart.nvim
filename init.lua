@@ -152,12 +152,29 @@ require('lazy').setup({
     },
   },
 
+  -- {
+  --   -- Theme inspired by Atom
+  --   'navarasu/onedark.nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'onedark'
+  --   end,
+  -- },
+
+  -- {
+  --   'catppuccin/nvim',
+  --   name = 'catppuccin',
+  --   priority = 1000,
+  --   -- config = function()
+  --   --   vim.cmd.colorscheme 'catppuccin'
+  --   -- end,
+  -- },
+
   {
-    -- Theme inspired by Atom
-    'navarasu/onedark.nvim',
+    'Mofiqul/vscode.nvim',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'onedark'
+      vim.cmd.colorscheme 'vscode'
     end,
   },
 
@@ -168,7 +185,9 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'onedark',
+        -- theme = 'onedark',
+        -- theme = 'catppuccin',
+        theme = 'vscode',
         component_separators = '|',
         section_separators = '',
       },
@@ -215,6 +234,17 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
     build = ':TSUpdate',
+  },
+
+  {
+    "aserowy/tmux.nvim",
+    config = function()
+      return require("tmux").setup()
+    end,
+  },
+
+  {
+    'RRethy/vim-illuminate'
   },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -290,10 +320,10 @@ vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Open float
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- Switch between windows
-vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Window right' })
-vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Window down' })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
+-- vim.keymap.set('n', '<C-h>', '<C-w>h', { desc = 'Window left' })
+-- vim.keymap.set('n', '<C-l>', '<C-w>l', { desc = 'Window right' })
+-- vim.keymap.set('n', '<C-j>', '<C-w>j', { desc = 'Window down' })
+-- vim.keymap.set('n', '<C-k>', '<C-w>k', { desc = 'Window up' })
 
 vim.keymap.set('n', '<C-n>', '<Cmd>Neotree toggle<CR>')
 
